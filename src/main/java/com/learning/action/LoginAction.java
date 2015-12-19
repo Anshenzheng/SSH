@@ -16,19 +16,27 @@ public class LoginAction extends ActionSupport {
 	@Autowired
 	UserDao userDao;
 	Logger log = Logger.getLogger(getClass());
-	public String execute(){
-		if("admin".equalsIgnoreCase(username) && "pass".equals(password)){
-			User user = userDao.getUserByUserNameAndPassword(username, password);
-			if(user != null){
-				log.error("logon success");
-				return SUCCESS;
-			}
-			
+
+	public String execute() {
+		log.info(username + " - " +password);
+		User user = userDao.getUserByUserNameAndPassword(username, password);
+		if (user != null) {
+			log.error("logon success");
+			return SUCCESS;
 		}
-		
+
 		super.addFieldError("message", "invalide username or password");
-		
+
 		return ERROR;
-		
+
 	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+	
 }
