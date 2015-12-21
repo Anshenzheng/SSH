@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.learning.pojo.User;
 
@@ -20,5 +19,11 @@ public class UserDao extends HibernateDaoSupport{
 		}
 		return null;
 	}
+	
+	@Autowired
+    public void anyMethodName(SessionFactory sessionFactory)
+    {
+        setSessionFactory(sessionFactory);
+    }
 
 }
