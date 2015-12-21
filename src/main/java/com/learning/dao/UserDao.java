@@ -20,11 +20,5 @@ public class UserDao extends HibernateDaoSupport{
 		}
 		return null;
 	}
-	
-	@Autowired
-    public void anyMethodName(SessionFactory sessionFactory)
-    {
-        setSessionFactory(sessionFactory);
-    }
 
 }
