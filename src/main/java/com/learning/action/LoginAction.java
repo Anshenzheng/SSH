@@ -13,6 +13,7 @@ public class LoginAction extends ActionSupport {
 
 	public String username;
 	public String password;
+	public String message;
 	@Autowired
 	UserDao userDao;
 	Logger log = Logger.getLogger(getClass());
@@ -22,21 +23,13 @@ public class LoginAction extends ActionSupport {
 		User user = userDao.getUserByUserNameAndPassword(username, password);
 		if (user != null) {
 			log.error("logon success");
+			message = "welcome, " + username;
 			return SUCCESS;
 		}
-
-		super.addFieldError("message", "invalide username or password");
 
 		return ERROR;
 
 	}
 
-	public UserDao getUserDao() {
-		return userDao;
-	}
 
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-	
 }

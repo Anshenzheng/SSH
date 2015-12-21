@@ -1,5 +1,8 @@
 package com.learning.pojo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
 	private int id;
 	private String userName;

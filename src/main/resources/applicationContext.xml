@@ -14,9 +14,9 @@
 	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	<!-- <bean name="login" class="com.learning.action.LoginAction"></bean> 
 	
-	<context:annotation-config/>
-<context:component-scan base-package="com.learning" />-->
-
+	-->
+<context:annotation-config/>
+<context:component-scan base-package="com.learning.dao" />
 	<!-- 定义使用C3P0连接池的数据源 -->
 	<bean id="mysql" class="org.apache.commons.dbcp.BasicDataSource">
 		<!-- 指定连接数据库的JDBC驱动 -->
