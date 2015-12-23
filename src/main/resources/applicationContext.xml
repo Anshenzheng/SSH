@@ -16,7 +16,7 @@
 	
 	-->
 <context:annotation-config/>
-<context:component-scan base-package="com.learning.dao" />
+<context:component-scan base-package="com.learning.*" />
 	<!-- 定义使用C3P0连接池的数据源 -->
 	<bean id="mysql" class="org.apache.commons.dbcp.BasicDataSource">
 		<!-- 指定连接数据库的JDBC驱动 -->
@@ -57,21 +57,21 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
-    	<property name="sessionFactory" ref="sessionFactory"/> 
-	</bean>
-	<aop:config>       
-        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..*dao.*(..))" 
-        order="1"/>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory"/>  
+    </bean>  
+      
+    <tx:advice id="txadvice" transaction-manager="transactionManager">  
+        <tx:attributes>  
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"/>  
+            <tx:method name="del*" propagation="REQUIRED" read-only="false"/>  
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>  
+            <tx:method name="*" propagation="REQUIRED" read-only="true"/>  
+        </tx:attributes>  
+    </tx:advice>   
+      
+    <aop:config>  
+        <aop:pointcut id="daoMethods" expression="execution(* com.learning.dao.*.*(..))"/>  
+        <aop:advisor advice-ref="txadvice" pointcut-ref="daoMethods"/>  
     </aop:config>
-
-    <tx:advice id="txAdvice">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="add*" propagation="REQUIRED" read-only="false" />
-            <tx:method name="save*" propagation="REQUIRED" read-only="false" />
-            <tx:method name="update*" propagation="REQUIRED" read-only="false" />
-            <tx:method name="delete*" propagation="REQUIRED" read-only="false" />
-        </tx:attributes>
-    </tx:advice>
 </beans>
